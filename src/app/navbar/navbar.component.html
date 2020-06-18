@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Fashion Factory</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <span (click)="toggleSideBar()" style="cursor: pointer;">
+            <i class="fa fa-search"  style="color: white;"></i>
+        </span>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-item nav-link"  href="/home">Home</a>
+          </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <span  style="cursor: pointer;" (click)="userLogin()"><i class="fa fa-user" style="color: white;"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span  style="cursor: pointer;"><i class="fa fa-shopping-cart" style="color: white;"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span  style="cursor: pointer;"><i class="fa fa-sign-out"  style="color: white;"></i></span>&nbsp;&nbsp;&nbsp;
+      </form>
+    </div>
+  </nav>
+
+  <div *ngIf="show">
+    <div class="wrapper">
+        <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <div *ngFor="let category of categorylist; index as i">
+                    <li class="active">
+                      <a  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" (click)="toggleHomeView(i)">{{category.name}}</a>
+                      <div *ngFor="let onesubcategory of category.subcategory;" >
+                        <li *ngIf="viewFlag[i]" (click)="displayProducts(category._id,onesubcategory._id)">
+                          <p># {{onesubcategory.name}}</p>
+                          <!-- <a [routerLink]="['']" [queryParams]="{categoryId: category._id,subcategoryId: onesubcategory._id }">{{onesubcategory.name}}</a> -->
+                              </li>
+                          </div>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </div>
+</div>

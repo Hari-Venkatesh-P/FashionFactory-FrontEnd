@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "FashionFactory"
+    }
+  },
+  "defaultProject": "FashionFactory",
+  "cli": {
+    "analytics": "cb96bf92-2441-4938-b6f1-58fa473d9eb2"
+  }
 }

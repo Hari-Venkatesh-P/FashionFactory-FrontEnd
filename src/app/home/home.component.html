@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<p>home works!</p>
+
+<div class="container" >
+        <div >
+            <div class="row">
+                <div class="card" style="width:30%;margin:5px" *ngFor="let product of productlist">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                            <th>Name</th>
+                        </div>
+                        <div class="col-md-6">
+                            <p>: {{product.name}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <th>Price</th>
+                        </div>
+                        <div class="col-md-6">
+                            <p>: $ {{product.price}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <th>Available</th>
+                        </div>
+                        <div class="col-md-6">
+                            <p>: {{product.availableQuantity}} Peices</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+    </div>
+</div>
