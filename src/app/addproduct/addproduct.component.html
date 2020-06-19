@@ -1,0 +1,199 @@
+<app-navbar></app-navbar>
+<div class="main">
+    <div class= "container">
+        <div style="display: flex;justify-content: flex-end;">
+            <button type="submit" class="btn btn-outline-dark btn-sm" style="margin:10px" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-plus"></i> CATEGORY</button>
+            <button type="submit" class="btn btn-outline-dark btn-sm" style="margin:10px" data-toggle="modal" data-target="#subcategoryModal"><i class="fa fa-plus"></i> SUBCATGORY</button>
+            <button type="submit" class="btn btn-outline-dark btn-sm" style="margin:10px" data-toggle="modal" data-target="#mapSubcategoryModal"><i class="fa fa-chain"></i> SUBCATGORY</button>
+        </div>
+        <div style="margin-left: 20px;">
+            <h3>Add Product</h3>
+        </div>
+        <div style="margin-left: 20px;">
+            <form [formGroup]="productForm" (ngSubmit)="addProduct()" enctype="multipart/form-data" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
+                <div class="form-row ">
+                    <div class="form-group col-md-1">
+                        <i class="fa fa-user" style="color:grey;"></i>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <div [ngClass]="{'errorField' : productForm.get('name').errors && (productForm.get('name').touched || productForm.get('name').dirty)}"><input type="text" formControlName="name" name="name" class="form-control form-control-sm" id="name" placeholder="Product Name" aria-describedby="name" required></div>
+                        <span *ngIf="productForm.get('name').errors && (productForm.get('name').touched || productForm.get('name').dirty)">
+                            <span style="color:red;font-size:15px">*Product name is mandatory</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-md-1">
+                        <i class="fa fa-user" style="color:grey;"></i>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <div [ngClass]="{'errorField' : productForm.get('price').errors && (productForm.get('price').touched || productForm.get('price').dirty)}"><input type="text" formControlName="price" name="price" class="form-control form-control-sm" id="price" placeholder="Price Amount" aria-describedby="price" required></div>
+                        <span *ngIf="productForm.get('price').errors && (productForm.get('price').touched || productForm.get('price').dirty)">
+                            <span style="color:red;font-size:15px">*Product price is mandatory</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-md-1">
+                        <i class="fa fa-user" style="color:grey;"></i>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <div [ngClass]="{'errorField' : productForm.get('description').errors && (productForm.get('description').touched || productForm.get('description').dirty)}"><textarea formControlName="description" name="description" class="form-control form-control-sm" id="description" placeholder="Description" aria-describedby="description" required></textarea></div>
+                        <span *ngIf="productForm.get('description').errors && (productForm.get('description').touched || productForm.get('description').dirty)">
+                            <span style="color:red;font-size:15px">*Product description is mandatory</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-md-1">
+                        <i class="fa fa-user" style="color:grey;"></i>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <div [ngClass]="{'errorField' : productForm.get('availableQuantity').errors && (productForm.get('availableQuantity').touched || productForm.get('availableQuantity').dirty)}"><input type="text" formControlName="availableQuantity" name="availableQuantity" class="form-control form-control-sm" id="availableQuantity" placeholder="Available Quantity" aria-describedby="availableQuantity" required></div>
+                        <span *ngIf="productForm.get('availableQuantity').errors && (productForm.get('availableQuantity').touched || productForm.get('availableQuantity').dirty)">
+                            <span style="color:red;font-size:15px">*Product Available Quantity is mandatory</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <div [ngClass]="{'errorField' : productForm.get('categoryId').errors && (productForm.get('categoryId').touched || productForm.get('categoryId').dirty)}">
+                            <select formControlName="categoryId" name="categoryId" class="custom-select custom-select-sm" (change)="getCategoryById(mySelect.value)" #mySelect>
+                                <option *ngFor="let category of categorylist" [value]="category._id">{{category.name}}</option>
+                            </select>
+                        </div>
+                        <span *ngIf="productForm.get('categoryId').errors && (productForm.get('categoryId').touched || productForm.get('categoryId').dirty)">
+                            <span style="color:red;font-size:15px">*Kindly select category</span>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Sub Category</label>
+                        <div [ngClass]="{'errorField' : productForm.get('subcategoryId').errors && (productForm.get('subcategoryId').touched || productForm.get('subcategoryId').dirty)}">
+                            <select formControlName="subcategoryId" name="subcategoryId" class="custom-select custom-select-sm">
+                                <option *ngFor="let subcategory of subcategoryList" [value]="subcategory._id" >{{subcategory.name}}</option>
+                              </select>
+                        </div>
+                        <span *ngIf="productForm.get('subcategoryId').errors && (productForm.get('subcategoryId').touched || productForm.get('subcategoryId').dirty)">
+                            <span style="color:red;font-size:15px">*Kindly select subcategory</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-md-6">
+                        <label>Front Image</label>
+                        <div [ngClass]="{'errorField' : productForm.get('categoryId').errors && (productForm.get('categoryId').touched || productForm.get('categoryId').dirty)}">
+                            <input type="file" name="productImage" accept="image/x-png,image/gif,image/jpeg"   (change)="onFileSelect($event)" />
+                        </div>
+                        <span *ngIf="productForm.get('categoryId').errors && (productForm.get('categoryId').touched || productForm.get('categoryId').dirty)">
+                            <span style="color:red;font-size:15px">*Kindly select front image</span>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Back Image</label>
+                        <div [ngClass]="{'errorField' : productForm.get('subcategoryId').errors && (productForm.get('subcategoryId').touched || productForm.get('subcategoryId').dirty)}">
+                            <input type="file" name="productImage" accept="image/x-png,image/gif,image/jpeg"   (change)="onFileSelect($event)" />
+                        </div>
+                        <span *ngIf="productForm.get('subcategoryId').errors && (productForm.get('subcategoryId').touched || productForm.get('subcategoryId').dirty)">
+                            <span style="color:red;font-size:15px">*Kindly select back image</span>
+                        </span>
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: center;">
+                    <button type="submit" class="btn btn-outline-dark btn-sm">ADD PRODUCT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="categoryModalLabel">ADD CATEGORY : </h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Category Name  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text"   name="categoryname" class=" form-control-sm" id="categoryname" placeholder="Category Name" aria-describedby="categoryname" required #categoryname>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="addCategory(categoryname.value)">ADD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="subcategoryModal" tabindex="-1" role="dialog" aria-labelledby="subcategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="subcategoryModalLabel">ADD SUBCATEGORY : </h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Sub Category Name  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text"   name="subcategoryname" class=" form-control-sm" id="subcategoryname" placeholder="SubCategory Name" aria-describedby="subcategoryname" required #subcategoryname>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="addSubcategory(subcategoryname.value)">ADD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="mapSubcategoryModal" tabindex="-1" role="dialog" aria-labelledby="mapSubcategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="mapSubcategoryModalLabel">MAP SUBCATEGORY : </h6>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Category Name  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select class="custom-select custom-select-sm" #category>
+                            <option *ngFor="let category of categorylist" [value]="category._id" >{{category.name}}</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Sub Category Name  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select class="custom-select custom-select-sm" #subcategory>
+                            <option *ngFor="let subcategory of allSubCategoriesList"  [value]="subcategory._id" >{{subcategory.name}}</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="mapSubCategory(category.value,subcategory.value)">MAP  SUBCATEGORY</button>
+        </div>
+      </div>
+    </div>
+  </div>

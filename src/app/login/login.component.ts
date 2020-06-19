@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormBuilder ,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,11 @@ export class LoginComponent implements OnInit {
 
   passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,12}$"
 
+  alertFlag : Boolean = false
 
-  constructor(private fb:FormBuilder,private  router:Router) { }
+  alertContent: String
+
+  constructor(private fb:FormBuilder,private  router:Router,private userService :UserService) { }
 
   ngOnInit(): void {
     this.signInForm  = this.fb.group({
@@ -38,12 +42,63 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signInUser(){
-    console.log(this.signInForm.value)
-  }
 
   signUpUser(){
-    console.log(this.signUpForm.value)
+     if(this.signUpForm.valid){
+       if(this.signUpForm.get('password').value === this.signUpForm.get('confirmpassword').value){
+        this.userService.signUpUser(this.signUpForm.value).subscribe((data:any)=>{
+          console.log(data)
+          if(data.success)
+          {
+            alert("Account created sucessfully")
+            this.toggleDisplay();
+            this.router.navigate(['login']);
+          }
+          else{
+            console.log("Error in account creation")
+            this.alertFlag = true
+            this.alertContent = "Error in account creation"
+          }
+        });
+       }else{
+         console.log("Password and Confirm Password doen not match")
+        this.alertFlag = true
+        this.alertContent = "Password and Confirm Password doen not match"
+      }
+    }else{
+      console.log("Fill the all required Fields")
+      this.alertFlag = true
+      this.alertContent = "Fill the all required Fields"
+    }
+  }
+
+  signInUser(){
+    if(this.signInForm.valid){
+       this.userService.signInUser(this.signInForm.value).subscribe((data:any)=>{
+         console.log(data)
+         if(data.success)
+         {
+           if(data.role==="USER")
+           {
+             this.userService.setUserLoggedIn(data.id);
+           }
+           else{
+             this.userService.setAdminLoggedIn();
+           }
+           this.userService.setToken(data.jwttoken);
+           this.router.navigate(['home']);
+         }
+         else{
+           console.log("Error in user login")
+           this.alertFlag = true
+           this.alertContent = "Error in user login"
+         }
+       });
+      }else{
+     console.log("Fill the all required Fields")
+     this.alertFlag = true
+     this.alertContent = "Fill the all required Fields"
+   }
   }
 
   toggleDisplay(){

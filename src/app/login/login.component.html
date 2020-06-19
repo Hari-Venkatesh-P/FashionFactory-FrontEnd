@@ -1,119 +1,127 @@
-<app-navbar></app-navbar>
-<div class="container">
-    <div *ngIf="signInFlag">
-        <div style="display: flex;justify-content: center;margin-top: 70px;">
-            <h3>Sign In</h3>
-        </div><br/>
-        <div style="display: flex;justify-content: center;">
-            <form [formGroup]="signInForm" (ngSubmit)="signInUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <i class="fa fa-envelope-square" size="3x"   style="color:grey;"></i>
+<div>
+    <div class="container">
+        <div *ngIf="signInFlag">
+            <div style="display: flex;justify-content: center;margin-top: 70px;">
+                <h3>Sign In</h3>
+            </div><br/>
+            <div class="alert alert-primary" role="alert">
+                A simple primary alert—check it out!
+              </div>a
+            <div style="display: flex;justify-content: center;">
+               
+                <form [formGroup]="signInForm" (ngSubmit)="signInUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <i class="fa fa-envelope-square" size="3x"   style="color:grey;"></i>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <div [ngClass]="{'errorField' : signInForm.get('email').errors && (signInForm.get('email').touched || signInForm.get('email').dirty)}"><input type="emails" formControlName="email" name="email" class="form-control form-control-sm" id="email" placeholder="User Email" aria-describedby="email" required></div>
+                            <span *ngIf="signInForm.get('email').errors && (signInForm.get('email').touched || signInForm.get('email').dirty)">
+                                <span style="color:red;font-size:15px">*Fill in the Email</span>
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-10">
-                        <div [ngClass]="{'errorField' : signInForm.get('email').errors && (signInForm.get('email').touched || signInForm.get('email').dirty)}"><input type="text" formControlName="email" name="email" class="form-control" id="email" placeholder="User Email" aria-describedby="email" required></div>
-                        <span *ngIf="signInForm.get('email').errors && (signInForm.get('email').touched || signInForm.get('email').dirty)">
-                            <span style="color:red;font-size:15px">*Fill in the Email</span>
-                        </span>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <i class="fa fa-lock"  style="color: grey;"></i>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <div [ngClass]="{'errorField' : ((signInForm.get('password').errors && (signInForm.get('password').touched || signInForm.get('password').dirty)) && signInForm.get('password').touched)}"><input type="password" class="form-control form-control-sm" formControlName="password" id="password" placeholder="User Password" required></div>
+                            <span *ngIf="((signInForm.get('password').errors && (signInForm.get('password').touched || signInForm.get('password').dirty)) && signInForm.get('password').touched)">
+                                <span style="color:red;font-size:15px">*Fill in the Password</span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <i class="fa fa-lock"  style="color: grey;"></i>
+                    <div style="display: flex;justify-content: center;">
+                        <button type="submit" class="btn btn-outline-info btn-sm">SIGN IN</button>
                     </div>
-                    <div class="form-group col-md-10">
-                        <div [ngClass]="{'errorField' : ((signInForm.get('password').errors && (signInForm.get('password').touched || signInForm.get('password').dirty)) && signInForm.get('password').touched)}"><input type="password" class="form-control" formControlName="password" id="password" placeholder="User Password" required></div>
-                        <span *ngIf="((signInForm.get('password').errors && (signInForm.get('password').touched || signInForm.get('password').dirty)) && signInForm.get('password').touched)">
-                            <span style="color:red;font-size:15px">*Fill in the Password</span>
-                        </span>
-                    </div>
-                </div>
-                <div style="display: flex;justify-content: center;">
-                    <button type="submit" class="btn btn-outline-info btn-sm">SIGN IN</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <span  style="cursor: pointer;display: flex;justify-content: center;">
+                <p style="color:grey;text-decoration: underline;" (click)="toggleDisplay()">Not having an Account</p>
+            </span>
         </div>
-        <span  style="cursor: pointer;display: flex;justify-content: center;">
-            <p style="color:grey;text-decoration: underline;" (click)="toggleDisplay()">Not having an Account</p>
-        </span>
+        <div *ngIf="!signInFlag">
+            <div style="margin: 20px;">
+                <h3>Sign Up</h3>
+            </div>
+            <div style="margin: 20px;">
+                <div class="alert alert-primary" role="alert">
+                    A simple primary alert—check it out!
+                  </div>
+                <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
+                    <div class="form-row ">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-user" style="color:grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('name').errors && (signUpForm.get('name').touched || signUpForm.get('name').dirty)}"><input type="text" formControlName="name" name="name" class="form-control form-control-sm" id="name" placeholder="Name" aria-describedby="name" required></div>
+                            <span *ngIf="signUpForm.get('name').errors && (signUpForm.get('name').touched || signUpForm.get('name').dirty)">
+                                <span style="color:red;font-size:15px">*User name is mandatory</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-envelope-square"    style="color:grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('email').errors && (signUpForm.get('email').touched || signUpForm.get('email').dirty)}"><input type="email" formControlName="email" name="email" class="form-control form-control-sm" id="email" placeholder="Email" aria-describedby="email" required></div>
+                            <span *ngIf="signUpForm.get('email').errors && (signUpForm.get('email').touched || signUpForm.get('email').dirty)">
+                                <span style="color:red;font-size:15px">*Email pattern doesn't match</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-lock"  style="color: grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('password').errors && (signUpForm.get('password').touched || signUpForm.get('password').dirty)}"><input type="password" formControlName="password" name="password" class="form-control form-control-sm" id="password" placeholder="Password" aria-describedby="password" required></div>
+                            <span *ngIf="signUpForm.get('password').errors && (signUpForm.get('password').touched || signUpForm.get('password').dirty)">
+                                <span style="color:red;font-size:15px">*Password pattern doesnt match.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-lock"  style="color: grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('confirmpassword').errors && (signUpForm.get('confirmpassword').touched || signUpForm.get('confirmpassword').dirty)}"><input type="password" formControlName="confirmpassword" name="confirmpassword" class="form-control form-control-sm" id="confirmpassword" placeholder="Confirm Password" aria-describedby="confirmpassword" required></div>
+                            <span *ngIf="signUpForm.get('confirmpassword').errors && (signUpForm.get('confirmpassword').touched || signUpForm.get('confirmpassword').dirty)">
+                                <span style="color:red;font-size:15px">*Confirm Password pattern doesnt match.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-mobile"  style="color: grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('mobile').errors && (signUpForm.get('mobile').touched || signUpForm.get('mobile').dirty)}"><input type="text" formControlName="mobile" name="mobile" class="form-control form-control-sm" id="mobile" placeholder="Mobile" aria-describedby="mobile" required></div>
+                            <span *ngIf="signUpForm.get('mobile').errors && (signUpForm.get('mobile').touched || signUpForm.get('mobile').dirty)">
+                                <span style="color:red;font-size:15px">*Mobile number has only 10 Digits only</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <i class="fa fa-address-card"  style="color: grey;"></i>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <div [ngClass]="{'errorField' : signUpForm.get('address').errors && (signUpForm.get('address').touched || signUpForm.get('address').dirty)}"><input type="text" formControlName="address" name="address" class="form-control form-control-sm" id="address" placeholder="Address" aria-describedby="address" required></div>
+                            <span *ngIf="signUpForm.get('address').errors && (signUpForm.get('address').touched || signUpForm.get('address').dirty)">
+                                <span style="color:red;font-size:15px">*Address is mandatory.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display: flex;justify-content: center;">
+                        <button type="submit" class="btn btn-outline-info btn-sm">SIGN UP</button>
+                    </div>
+                </form>
+                <p style="color:grey;text-decoration: underline;cursor: pointer;" (click)="toggleDisplay()">Already having an account ? :)</p>
+            </div>
+        </div><br/><br/>
     </div>
-    <div *ngIf="!signInFlag">
-        <div style="margin: 20px;">
-            <h3>Sign Up</h3>
-        </div>
-        <div style="margin: 20px;">
-            <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
-                <div class="form-row ">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-user" style="color:grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('name').errors && (signUpForm.get('name').touched || signUpForm.get('name').dirty)}"><input type="text" formControlName="name" name="name" class="form-control form-control-sm" id="name" placeholder="Name" aria-describedby="name" required></div>
-                        <span *ngIf="signUpForm.get('name').errors && (signUpForm.get('name').touched || signUpForm.get('name').dirty)">
-                            <span style="color:red;font-size:15px">*User name is mandatory</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-envelope-square"    style="color:grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('email').errors && (signUpForm.get('email').touched || signUpForm.get('email').dirty)}"><input type="email" formControlName="email" name="email" class="form-control form-control-sm" id="email" placeholder="Email" aria-describedby="email" required></div>
-                        <span *ngIf="signUpForm.get('email').errors && (signUpForm.get('email').touched || signUpForm.get('email').dirty)">
-                            <span style="color:red;font-size:15px">*Email pattern doesn't match</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-lock"  style="color: grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('password').errors && (signUpForm.get('password').touched || signUpForm.get('password').dirty)}"><input type="password" formControlName="password" name="password" class="form-control form-control-sm" id="password" placeholder="Password" aria-describedby="password" required></div>
-                        <span *ngIf="signUpForm.get('password').errors && (signUpForm.get('password').touched || signUpForm.get('password').dirty)">
-                            <span style="color:red;font-size:15px">*Password pattern doesnt match.</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-lock"  style="color: grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('confirmpassword').errors && (signUpForm.get('confirmpassword').touched || signUpForm.get('confirmpassword').dirty)}"><input type="password" formControlName="confirmpassword" name="confirmpassword" class="form-control form-control-sm" id="confirmpassword" placeholder="Confirm Password" aria-describedby="confirmpassword" required></div>
-                        <span *ngIf="signUpForm.get('confirmpassword').errors && (signUpForm.get('confirmpassword').touched || signUpForm.get('confirmpassword').dirty)">
-                            <span style="color:red;font-size:15px">*Confirm Password pattern doesnt match.</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-mobile"  style="color: grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('mobile').errors && (signUpForm.get('mobile').touched || signUpForm.get('mobile').dirty)}"><input type="text" formControlName="mobile" name="mobile" class="form-control form-control-sm" id="mobile" placeholder="Mobile" aria-describedby="mobile" required></div>
-                        <span *ngIf="signUpForm.get('mobile').errors && (signUpForm.get('mobile').touched || signUpForm.get('mobile').dirty)">
-                            <span style="color:red;font-size:15px">*Mobile number has only 10 Digits only</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <i class="fa fa-address-card"  style="color: grey;"></i>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <div [ngClass]="{'errorField' : signUpForm.get('address').errors && (signUpForm.get('address').touched || signUpForm.get('address').dirty)}"><input type="text" formControlName="address" name="address" class="form-control form-control-sm" id="address" placeholder="Address" aria-describedby="address" required></div>
-                        <span *ngIf="signUpForm.get('address').errors && (signUpForm.get('address').touched || signUpForm.get('address').dirty)">
-                            <span style="color:red;font-size:15px">*Address is mandatory.</span>
-                        </span>
-                    </div>
-                </div>
-                <div style="display: flex;justify-content: center;">
-                    <button type="submit" class="btn btn-outline-info btn-sm">SIGN UP</button>
-                </div>
-            </form>
-            <p style="color:grey;text-decoration: underline;cursor: pointer;" (click)="toggleDisplay()">Already having an account ? :)</p>
-        </div>
-    </div><br/><br/>
 </div>

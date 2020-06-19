@@ -1,0 +1,11 @@
+<div class="sidenav">
+    <div style="cursor: pointer;" *ngFor="let category of categorylist; index as i">
+        <a data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" (click)="toggleHomeView(i)">{{category.name}}</a>
+        <div *ngFor="let onesubcategory of category.subcategory;" >
+            <div *ngIf="viewFlag[i]" >
+              <p class="selected" (click)="displayProducts(category._id,onesubcategory._id)" style="cursor: pointer;"># {{onesubcategory.name}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<div class="main">
+    <div class="container">
+      <div *ngFor="let cart of cartDetailsList"> 
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="..." class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="card-title">Added to cart on {{cart.date|date}}</p>
+                <p class="card-text">Product : {{cart.products.name}}</p>
+                <p class="card-text">{{cart.products.description}}</p>
+                <p class="card-text">Quantity : {{cart.quantity}}</p>
+                <p><button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#orderItemsFromCartModal" (click)="setCurrentItemId(cart.products._id)">Place Order</button></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="orderItemsFromCartModal" tabindex="-1" role="dialog" aria-labelledby="orderItemsFromCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderItemsFromCartModalLabel">Modal title</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" (change)="setPaymentStatus('card')">
+                <label class="custom-control-label" for="customRadio1">Pay via Card</label>
+              </div>
+            </div>
+            <div *ngIf="displayFlag" class="col-md-6">
+                <input type="number" placeholder="****-****-****-****"/> 
+            </div>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" (change)="setPaymentStatus('cod')">
+          <label class="custom-control-label" for="customRadio2">Cash On Delivery</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark"  data-dismiss="modal" (click)="orderItemsFromCart()">Place Order</button>
+      </div>
+    </div>
+  </div>
+</div>

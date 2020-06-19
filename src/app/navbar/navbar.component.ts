@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category.service';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent implements OnInit {
   viewFlag:Array<Boolean>=[]
   categoryId : String
   subcategoryId : String 
-  constructor(private categoryservice:CategoryService,private  router:Router) { }
+  constructor(private categoryservice:CategoryService,private  router:Router,private userService:UserService) { }
   ngOnInit() {
     this.getAllCategories()
   }
@@ -51,5 +52,14 @@ export class NavbarComponent implements OnInit {
     console.log("Hello from user")
       this.router.navigate(['/login']);
   }
+
+  isAdminLoggedIn(){
+    return this.userService.isAdminLoggedIn()
+  }
+
+  isUserLoggedIn(){
+    return this.userService.isUserLoggedIn()
+  }
+  
 
 }

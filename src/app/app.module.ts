@@ -7,12 +7,22 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import {   HttpClientModule  } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { AddproductComponent } from './addproduct/addproduct.component';
+import { ShoppingcartComponent } from './shoppingcart/shoppingcart.component';
+import { OrderComponent } from './order/order.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent,
+    SidebarComponent,
+    AddproductComponent,
+    ShoppingcartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

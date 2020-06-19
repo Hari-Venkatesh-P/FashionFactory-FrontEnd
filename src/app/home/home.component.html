@@ -1,38 +1,181 @@
 <app-navbar></app-navbar>
-<p>home works!</p>
 
+<div class="main">
 <div class="container" >
-        <div >
-            <div class="row">
-                <div class="card" style="width:30%;margin:5px" *ngFor="let product of productlist">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-6">
-                            <th>Name</th>
-                        </div>
-                        <div class="col-md-6">
-                            <p>: {{product.name}}</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <th>Price</th>
-                        </div>
-                        <div class="col-md-6">
-                            <p>: $ {{product.price}}</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <th>Available</th>
-                        </div>
-                        <div class="col-md-6">
-                            <p>: {{product.availableQuantity}} Peices</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  <div *ngIf="noProductFlag">
+      <h1>No Products</h1>
+  </div>
+  <div>
+    <div class="row">
+      <div class="card border-dark mb-3 flip-card" style="width:20%;margin:4px;padding: 2px;" *ngFor="let product of productlist">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div style="display: flex;justify-content: center;">
+              <img src= "https://ae01.alicdn.com/kf/HTB1.370h_TI8KJjSsphq6AFppXa8.jpg" alt="No Image Preview" class="centerAlign" width="auto" height="auto">
             </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                    <th style="font-size:13px;">Name</th>
+                </div>
+                <div class="col-md-9">
+                    <p style="font-size:13px;">{{product.name}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <th style="font-size:13px;">Price</th>
+                </div>
+                <div class="col-md-9">
+                    <p style="font-size:13px;">{{product.price}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <th style="font-size:13px;">Available</th>
+                </div>
+                <div class="col-md-9">
+                    <p style="font-size:13px;">{{product.availableQuantity}} Peices</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back">
+            <div style="display: flex;justify-content: center;">
+              <img src= "https://pyxis.nymag.com/v1/imgs/3f3/96d/7bbf8b83e0f2a2bd1b5bcf1cb82e023b63-J-crew-mens-tshirt.2x.rhorizontal.w600.jpg" alt="No Image Preview" class="centerAlign" width="auto" height="auto">
+            </div>
+            <div class="card-body">
+              <div>
+                <th style="font-size:13px;">Description</th>
+              </div>
+              <div>
+                <p style="font-size:13px;">{{product.description}}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div  *ngIf="!isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: darkgrey;">
+        <button type="button" class="btn btn-outline-dark  btn-sm"   (click)="fetchProductDetails(product._id)" data-toggle="modal" data-target="#addToCartModal"><i class="fa fa-shopping-basket"></i></button>
+      </div>
+      <div *ngIf="isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: darkgrey;">
+        <button  type="button" class="btn btn-outline-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#updateModal" (click)="fetchProductDetails(product._id)"><i class="fa fa-edit"></i></button>
+        <button   type="button" class="btn btn-outline-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#deleteModal" (click)="fetchProductDetails(product._id)"><i class="fa fa-trash"></i></button>
+      </div>
     </div>
+  </div>
+</div>
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">UPDATE PRODUCT</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Name</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text"  [(ngModel)]="productname" name="name" class=" form-control-sm" id="name" placeholder="Product Name" aria-describedby="name" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Price</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" [(ngModel)]="productprice" name="price" class=" form-control-sm" id="price" placeholder="Product Price" aria-describedby="name" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Availablity</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text"  [(ngModel)]="productavailableQuantity" name="availablity" class=" form-control-sm" id="availablity" placeholder="Product Availablity" aria-describedby="name" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Description</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <textarea  [(ngModel)]="productdescription" name="productdescription" class=" form-control-sm" id="description"  placeholder="Product Description" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Category</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <select class="custom-select custom-select-sm" (change)="getCategoryById(mySelect.value)" #mySelect>
+                  <option *ngFor="let category of categorylist" [value]="category._id" >{{category.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Product Subcategory</b></p>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <select class="custom-select custom-select-sm">
+                <option *ngFor="let subcategory of subcategoryList" [value]="subcategory._id" >{{subcategory.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">CLOSE</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="updateProduct(productid)">UPDATE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="deleteModalLabel">DELETE PRODUCT</h6>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete the product <b>{{productname}}</b> of category  <b>{{productcategoryName}}</b> and subcategory <b>{{productsubcategoryName}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="deleteProduct()">DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addToCartModalLabel">ENTER THE QUANTITY </h5>
+      </div>
+      <div class="modal-body" style="margin-left: 20px;">
+        <div class="row">
+          <th>Quantity : </th>&nbsp;&nbsp;
+          <input type="number" min="1" [max]="productavailableQuantity" value="1" [(ngModel)]="defaultQuantity" #quantity>
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">CLOSE</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="addToCart(quantity.value)">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
 </div>
