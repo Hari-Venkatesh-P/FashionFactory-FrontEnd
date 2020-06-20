@@ -17,7 +17,7 @@ export class ProductService {
 
   public getProductById(productId:String)
   {
-    return this.httpClient.get(`product/${productId}`);
+    return this.httpClient.get(config.URL+`product/${productId}`);
   }
 
   public getLatestProducts()
