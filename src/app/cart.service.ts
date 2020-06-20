@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient  } from '@angular/common/http';
+import { config } from '../config/config';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +13,19 @@ export class CartService {
 
   public getShoppingCartDetails()
   {
-    return this.httpClient.get(`http://localhost:4000/cart/${sessionStorage.getItem('user')}`);
+    return this.httpClient.get(config.URL+`cart/${sessionStorage.getItem('user')}`);
   }
   public orderItemsFromCart(reqBody)
   {
-    return this.httpClient.put(`http://localhost:4000/cart/`,reqBody);
+    return this.httpClient.put(config.URL+`cart/`,reqBody);
   }
 
   public getOrderDetails()
   {
-    return this.httpClient.get(`http://localhost:4000/cart/orders/${sessionStorage.getItem('user')}`);
+    return this.httpClient.get(config.URL+`cart/orders/${sessionStorage.getItem('user')}`);
+  }
+  public getOverAllOrderDetails()
+  {
+    return this.httpClient.get(config.URL+`cart/orders/forall`);
   }
 }

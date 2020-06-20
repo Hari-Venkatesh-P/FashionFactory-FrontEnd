@@ -1,1 +1,81 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+<div class="main"><br>
+    <div class="container"> 
+        <div style="display: flex;justify-content: flex-end;">
+            <button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#updateProfileModal" >EDIT DETAILS</button>
+        </div><br>
+        <div class="card mb-3">
+            <div class="card-header"><b>My Profile Details</b></div>
+            <div class="card-body">
+              <p class="card-text">
+                <div class="row" style="margin: 5px;">
+                    <div class="col-md-6">
+                        <p class="display"><b>Name </b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="display">{{name}}</p>
+                    </div>
+                </div>  
+                <div class="row" style="margin: 5px;">
+                    <div class="col-md-6">
+                        <p class="display"><b>Email</b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="display">{{email}}</p>
+                    </div>
+                </div>  
+                <div class="row" style="margin: 5px;">
+                    <div class="col-md-6">
+                        <p class="display"> <b>Mobile </b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="display">{{mobile}}</p>
+                    </div>
+                </div>  
+                <div class="row" style="margin: 5px;">
+                    <div class="col-md-6">
+                        <p class="display"> <b>Address </b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="display">{{address}}</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>  
+</div>
+
+<div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" aria-labelledby="c" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateProfileModalTitle">UPDATE PROFILE DETAILS</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="display"><b>Mobile Number  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" [(ngModel)]="mobile" name="mobile" class=" form-control-sm" id="mobile"  aria-describedby="mobile" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="display"><b>Address  :</b></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <textarea  name="address" [(ngModel)]="address" class="form-control-sm" id="address"  rows="3" cols="20" aria-describedby="address" required></textarea>
+                    </div>
+                </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">CLOSE</button>
+          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal" (click)="updateDetails()">UPDATE CHANGES</button>
+        </div>
+      </div>
+    </div>
+  </div>

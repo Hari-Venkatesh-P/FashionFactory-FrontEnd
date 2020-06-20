@@ -1,12 +1,11 @@
 <body>
   <ul>
-      <li><a href="">Fashion Factory</a></li>
-      <li style="float:right" ><span ><a     style="cursor: pointer;"><i class="fa fa-sign-out"  style="color: white;"></i></a></span></li>
-      <li style="float:right" ><span ><a  href="/order"   style="cursor: pointer;"><i class="fa fa-shopping-basket"  style="color: white;"></i></a></span></li>
-      <li *ngIf="!isAdminLoggedIn()"style="float:right"><a  href="/shoppingcart" style="cursor: pointer;"> <i class="fa fa-shopping-cart" style="color: white;"></i></a></li>
-      <li *ngIf="isUserLoggedIn()"style="float:right"><a  href="/order" style="cursor: pointer;"> <i class="fa fa-truck" style="color: white;" aria-hidden="true"></i></a></li>
-      <li style="float:right"><a  style="cursor: pointer;"><i class="fa fa-user" style="color: white;"></i></a></li>
-      
+      <li class="mainBanner"><a href="/home">Fashion &nbsp;&nbsp;&nbsp;Factory</a></li>
+      <li *ngIf="isAdminLoggedIn() || isUserLoggedIn()" style="float:right" ><span (click)="logOut()"><a style="cursor: pointer;"><i class="fa fa-sign-out"  style="color: white;"></i></a></span></li>
+      <li *ngIf="isUserLoggedIn()" style="float:right"><a  href="/shoppingcart" style="cursor: pointer;"> <i class="fa fa-shopping-cart" style="color: white;"></i></a></li>
+      <li *ngIf="isUserLoggedIn() || isAdminLoggedIn()"style="float:right"><a  href="/order" style="cursor: pointer;"> <i class="fa fa-truck" style="color: white;" aria-hidden="true"></i></a></li>
+      <li *ngIf="isUserLoggedIn()" style="float:right"><a href="/profile" style="cursor: pointer;"><i class="fa fa-user" style="color: white;"></i></a></li>
+      <li  *ngIf="!isAdminLoggedIn() && !isUserLoggedIn()" style="float:right"><a href="/login" style="cursor: pointer;">Login</a></li>
     </ul>
   <br/>
 </body><br/><br/>

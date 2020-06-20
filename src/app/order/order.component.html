@@ -1,22 +1,28 @@
 <app-navbar></app-navbar>
 <div class="main">
     <div class="container">
+      <br/>
+      <div *ngIf="alertFlag" style="display: flex;justify-content: center;">
+        <h3  class="alert">{{alertContent}}</h3>
+      </div>
       <div *ngFor="let order of orderDetailsList"> 
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="..." class="card-img" alt="...">
+            <div class="col-md-6">
+              <img [src]= "'https://fashion-factory-backend.herokuapp.com/product/image/'+order.products.imageId+'.png' " class="card-img" alt="No Image Preview" width="auto" height="auto">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <div class="card-body">
-                  <p class="card-title">Product ordered on {{order.date|date}}</p>
-                  <p class="card-text">Product : {{order.products.name}}</p>
-                  <p class="card-text">{{order.products.description}}</p>
-                  <p class="card-text">Quantity : {{order.quantity}}</p>
-                  <p class="card-text" [ngStyle]="{'color':order.paymentStatus === true ? 'green' : 'red' }">
+                  <p class="display">Product ordered on {{order.date|date}}.</p>
+                  <p *ngIf="isAdminLoggedIn()" class="display">Cutomer : {{order.users?.name}}</p>
+                  <p *ngIf="isAdminLoggedIn()" class="display">Mobile : {{order.users?.mobile}}</p>
+                  <p *ngIf="isAdminLoggedIn()" class="display">Email : {{order.users?.email}}</p>
+                  <p class="display">Product : {{order.products.name}}</p>
+                  <p class="display">Description :{{order.products.description}}</p>
+                  <p class="display">Quantity : {{order.quantity}}</p>
+                  <p class="display" [ngStyle]="{'color':order.paymentStatus === true ? 'green' : 'red' }">
                   <span > {{order.paymentStatus==true?'Paid':'Not Paid'}}</span>
                 </p>
-
               </div>
             </div>
           </div>

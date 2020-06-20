@@ -4,12 +4,9 @@
             <div style="display: flex;justify-content: center;margin-top: 70px;">
                 <h3>Sign In</h3>
             </div><br/>
-            <div class="alert alert-primary" role="alert">
-                A simple primary alert—check it out!
-              </div>a
             <div style="display: flex;justify-content: center;">
-               
                 <form [formGroup]="signInForm" (ngSubmit)="signInUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
+                    
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <i class="fa fa-envelope-square" size="3x"   style="color:grey;"></i>
@@ -33,12 +30,12 @@
                         </div>
                     </div>
                     <div style="display: flex;justify-content: center;">
-                        <button type="submit" class="btn btn-outline-info btn-sm">SIGN IN</button>
+                        <button type="submit" class="btn btn-outline-dark btn-sm">SIGN IN</button>
                     </div>
                 </form>
             </div>
             <span  style="cursor: pointer;display: flex;justify-content: center;">
-                <p style="color:grey;text-decoration: underline;" (click)="toggleDisplay()">Not having an Account</p>
+                <p style="color:grey;text-decoration: underline;" (click)="toggleDisplay()">New User ? Create an Account</p>
             </span>
         </div>
         <div *ngIf="!signInFlag">
@@ -46,9 +43,9 @@
                 <h3>Sign Up</h3>
             </div>
             <div style="margin: 20px;">
-                <div class="alert alert-primary" role="alert">
-                    A simple primary alert—check it out!
-                  </div>
+                    <div  *ngIf="alertFlag"  class="alert alert-danger" role="alert">
+                        <span>{{alertContent}}</span>
+                    </div>
                 <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" style="border:2px;border-color: grey;border-style: solid;padding: 30px;">
                     <div class="form-row ">
                         <div class="form-group col-md-1">
@@ -117,10 +114,10 @@
                         </div>
                     </div>
                     <div style="display: flex;justify-content: center;">
-                        <button type="submit" class="btn btn-outline-info btn-sm">SIGN UP</button>
+                        <button type="submit" class="btn btn-outline-dark btn-sm">SIGN UP</button>
                     </div>
                 </form>
-                <p style="color:grey;text-decoration: underline;cursor: pointer;" (click)="toggleDisplay()">Already having an account ? :)</p>
+                <p style="color:grey;text-decoration: underline;cursor: pointer;" (click)="toggleDisplay()">Already have an account ? Click here to login</p>
             </div>
         </div><br/><br/>
     </div>

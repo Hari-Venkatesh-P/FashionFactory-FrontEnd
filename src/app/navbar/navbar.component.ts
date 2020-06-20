@@ -36,15 +36,11 @@ export class NavbarComponent implements OnInit {
         this.categorylist = data.message;
         this.viewFlag.length +=parseInt(data.message.length)
         this.viewFlag.fill(false)
-        console.log(this.viewFlag)
-      }else{
-          console.log(data.message)
       }
     })
   }
 
   displayProducts(catId:String,subcatId:String){
-    console.log(catId,subcatId);
     this.router.navigate(['/home'], { queryParams: { categoryId: catId,subcategoryId: subcatId } })
   }
 
@@ -59,6 +55,11 @@ export class NavbarComponent implements OnInit {
 
   isUserLoggedIn(){
     return this.userService.isUserLoggedIn()
+  }
+
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/home']);
   }
   
 

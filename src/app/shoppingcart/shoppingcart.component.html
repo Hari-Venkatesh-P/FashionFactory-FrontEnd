@@ -1,19 +1,22 @@
 <app-navbar></app-navbar>
 <div class="main">
-    <div class="container">
+    <div class="container" style="margin-top: 5px;">
+      <div *ngIf="alertFlag" style="display: flex;justify-content: center;">
+        <h3  class="alert">You have no products added to cart ..! :(</h3>
+      </div>
       <div *ngFor="let cart of cartDetailsList"> 
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-3 "  style="max-width: 540px;">
           <div class="row no-gutters">
             <div class="col-md-4">
-              <img src="..." class="card-img" alt="...">
+              <img [src]= "'https://fashion-factory-backend.herokuapp.com/product/image/'+cart.products.imageId+'.png' " class="card-img" alt="No Image Preview" width="auto" height="auto">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <p class="card-title">Added to cart on {{cart.date|date}}</p>
-                <p class="card-text">Product : {{cart.products.name}}</p>
-                <p class="card-text">{{cart.products.description}}</p>
-                <p class="card-text">Quantity : {{cart.quantity}}</p>
-                <p><button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#orderItemsFromCartModal" (click)="setCurrentItemId(cart.products._id)">Place Order</button></p>
+                <p class="display">Added to cart on {{cart.date|date}}.</p>
+                <p class="display">Product : {{cart.products.name}}</p>
+                <p class="display">{{cart.products.description}}</p>
+                <p class="display">Quantity : {{cart.quantity}}</p>
+                <p><button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#orderItemsFromCartModal" (click)="setCurrentItemId(cart.products._id,cart._id)">Proceed to payment</button></p>
               </div>
             </div>
           </div>
@@ -25,28 +28,29 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="orderItemsFromCartModalLabel">Modal title</h5>
+        <h5 class="modal-title display" id="orderItemsFromCartModalLabel">Payment Method</h5>
       </div>
       <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
               <div class="custom-control custom-radio">
                 <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" (change)="setPaymentStatus('card')">
-                <label class="custom-control-label" for="customRadio1">Pay via Card</label>
+                <label class="custom-control-label display" for="customRadio1">Pay via Card</label>
               </div>
             </div>
             <div *ngIf="displayFlag" class="col-md-6">
+              <label class="display">Accout Number</label>
                 <input type="number" placeholder="****-****-****-****"/> 
             </div>
         </div>
         <div class="custom-control custom-radio">
           <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" (change)="setPaymentStatus('cod')">
-          <label class="custom-control-label" for="customRadio2">Cash On Delivery</label>
+          <label class="custom-control-label display" for="customRadio2">Cash On Delivery</label>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-dark"  data-dismiss="modal" (click)="orderItemsFromCart()">Place Order</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark btn-sm"  data-dismiss="modal" (click)="orderItemsFromCart()">Place Order</button>
       </div>
     </div>
   </div>

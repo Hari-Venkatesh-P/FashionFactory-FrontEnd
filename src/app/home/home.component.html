@@ -2,8 +2,8 @@
 
 <div class="main">
 <div class="container" >
-  <div *ngIf="noProductFlag">
-      <h1>No Products</h1>
+  <div *ngIf="noProductFlag" class="alert" style="display: flex;justify-content: center;margin:5px;">
+      <h3 class="alert">No Products Found..</h3>
   </div>
   <div>
     <div class="row">
@@ -11,55 +11,55 @@
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <div style="display: flex;justify-content: center;">
-              <img src= "https://ae01.alicdn.com/kf/HTB1.370h_TI8KJjSsphq6AFppXa8.jpg" alt="No Image Preview" class="centerAlign" width="auto" height="auto">
+              <img [src]= "'https://fashion-factory-backend.herokuapp.com/product/image/'+product.imageId+'.png' " (click)="openImage(product.imageId)" alt="No Image Preview" class="centerAlign" width="auto" height="auto">
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-3">
-                    <th style="font-size:13px;">Name</th>
+                    <th class="display" style="font-size:13px;">Name</th>
                 </div>
                 <div class="col-md-9">
-                    <p style="font-size:13px;">{{product.name}}</p>
+                    <p class="display" style="font-size:13px;">{{product.name}}</p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3">
-                    <th style="font-size:13px;">Price</th>
+                    <th class="display" style="font-size:13px;">Price</th>
                 </div>
                 <div class="col-md-9">
-                    <p style="font-size:13px;">{{product.price}}</p>
+                    <p class="display" style="font-size:13px;">$ {{product.price}}</p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3">
-                    <th style="font-size:13px;">Available</th>
+                    <th class="display" style="font-size:13px;">Available</th>
                 </div>
                 <div class="col-md-9">
-                    <p style="font-size:13px;">{{product.availableQuantity}} Peices</p>
+                    <p class="display" style="font-size:13px;">{{product.availableQuantity}} Peices</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="flip-card-back">
             <div style="display: flex;justify-content: center;">
-              <img src= "https://pyxis.nymag.com/v1/imgs/3f3/96d/7bbf8b83e0f2a2bd1b5bcf1cb82e023b63-J-crew-mens-tshirt.2x.rhorizontal.w600.jpg" alt="No Image Preview" class="centerAlign" width="auto" height="auto">
+              <img [src]= "'https://fashion-factory-backend.herokuapp.com/product/image/'+product.imageId1+'.png' "  (click)="openImage(product.imageId1)"alt="No Image Preview" class="centerAlign" width="auto" height="auto">
             </div>
             <div class="card-body">
               <div>
-                <th style="font-size:13px;">Description</th>
+                <th class="display" style="font-size:13px;">Description</th>
               </div>
               <div>
-                <p style="font-size:13px;">{{product.description}}</p>
+                <p class="display" style="font-size:13px;">{{product.description}}</p>
               </div>
           </div>
         </div>
+      </div><br/>
+      <div  *ngIf="!isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: white;">
+        <button type="button" class="btn btn-dark  btn-sm"   (click)="checkandFetchProductDetails(product._id,'user')" data-toggle="modal" data-target="#addToCartModal">ADD TO CART</button><br/>
       </div>
-      <div  *ngIf="!isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: darkgrey;">
-        <button type="button" class="btn btn-outline-dark  btn-sm"   (click)="fetchProductDetails(product._id)" data-toggle="modal" data-target="#addToCartModal"><i class="fa fa-shopping-basket"></i></button>
-      </div>
-      <div *ngIf="isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: darkgrey;">
-        <button  type="button" class="btn btn-outline-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#updateModal" (click)="fetchProductDetails(product._id)"><i class="fa fa-edit"></i></button>
-        <button   type="button" class="btn btn-outline-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#deleteModal" (click)="fetchProductDetails(product._id)"><i class="fa fa-trash"></i></button>
+      <div *ngIf="isAdminLoggedIn()" class="row" style="display: flex;justify-content: center;margin-left: 2px;margin-right: 2px;background-color: white;">
+        <button  type="button" class="btn btn-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#updateModal" (click)="checkandFetchProductDetails(product._id,'admin')"><i class="fa fa-edit"></i></button>
+        <button   type="button" class="btn btn-dark  btn-sm" style="margin:5px" data-toggle="modal" data-target="#deleteModal" (click)="checkandFetchProductDetails(product._id,'admin')"><i class="fa fa-trash"></i></button>
       </div>
     </div>
   </div>
@@ -68,12 +68,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateModalLabel">UPDATE PRODUCT</h5>
+        <h5 class="modal-title display" id="updateModalLabel" >UPDATE PRODUCT</h5>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Name</b></p>
+            <p class="display"><b>Product Name</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -83,7 +83,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Price</b></p>
+            <p class="display"><b>Product Price</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -93,7 +93,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Availablity</b></p>
+            <p class="display"><b>Product Availablity</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -103,7 +103,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Description</b></p>
+            <p class="display"><b>Product Description</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -113,7 +113,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Category</b></p>
+            <p class="display"><b>Product Category</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -125,11 +125,11 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Product Subcategory</b></p>
+            <p class="display"><b>Product Subcategory</b></p>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <select class="custom-select custom-select-sm">
+              <select class="custom-select custom-select-sm" #subcategory>
                 <option *ngFor="let subcategory of subcategoryList" [value]="subcategory._id" >{{subcategory.name}}</option>
               </select>
             </div>
@@ -138,7 +138,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">CLOSE</button>
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="updateProduct(productid)">UPDATE</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="updateProduct(productid,subcategory.value)">UPDATE</button>
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@
         <h6 class="modal-title" id="deleteModalLabel">DELETE PRODUCT</h6>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete the product <b>{{productname}}</b> of category  <b>{{productcategoryName}}</b> and subcategory <b>{{productsubcategoryName}}</b></p>
+        <p class="display">Are you sure you want to delete the product <b>{{productname}}</b> of category  <b>{{productcategoryName}}</b> and subcategory <b>{{productsubcategoryName}}</b> ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -160,7 +160,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+<div *ngIf="modalFlag" class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -168,7 +168,7 @@
       </div>
       <div class="modal-body" style="margin-left: 20px;">
         <div class="row">
-          <th>Quantity : </th>&nbsp;&nbsp;
+          <th class="display">Quantity : </th>&nbsp;&nbsp;
           <input type="number" min="1" [max]="productavailableQuantity" value="1" [(ngModel)]="defaultQuantity" #quantity>
         </div> 
       </div>

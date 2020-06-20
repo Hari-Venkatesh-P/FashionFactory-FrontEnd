@@ -42,17 +42,13 @@ export class AddproductComponent implements OnInit {
   }
   onFileSelect(event) {
     if (event.target.files.length > 0) {
-      console.log("Called")
       const file = event.target.files[0];
       this.formData.append('productImage', file);
     }
   } 
 
   addProduct(){
-    console.log("Product Add")
-    console.log(this.productForm.value)
     if(this.productForm.valid){
-      console.log(this.productForm.value)
       this.formData.append('name', this.productForm.get('name').value);
       this.formData.append('price', this.productForm.get('price').value);
       this.formData.append('description', this.productForm.get('description').value);
@@ -81,8 +77,6 @@ export class AddproductComponent implements OnInit {
       if(data.success)
       {
         this.categorylist = data.message;
-      }else{
-          console.log(data.message)
       }
     })
   }
@@ -94,8 +88,6 @@ export class AddproductComponent implements OnInit {
       {
         this.allSubCategoriesList = data.message;
         console.log(this.allSubCategoriesList)
-      }else{
-          console.log(data.message)
       }
     })
   }
@@ -112,7 +104,6 @@ export class AddproductComponent implements OnInit {
   }
 
   addSubcategory(name){
-    console.log(name)
     if(name ===null || name===''){
       alert("Fill the Required Field")
     }else{

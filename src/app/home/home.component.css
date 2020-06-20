@@ -40,12 +40,28 @@
   }
   
   .flip-card-front {
-    background-color: darkgrey;
+    background-color: white;
     color: black;
   }
   
   .flip-card-back {
-    background-color: darkgrey;
+    background-color: white;
     color: black;
     transform: rotateY(180deg);
   }
+
+
+  .display{
+    font-family: 'Merriweather', serif;
+  }
+
+
+  .alert{
+    font-family: 'Roboto Slab', serif;
+        color: red;
+}
+
+.displayBanner{
+  font-family: 'Roboto Slab', serif;
+  color:white
+}

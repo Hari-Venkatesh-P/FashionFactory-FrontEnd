@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  signInFlag : Boolean = false
+  signInFlag : Boolean = true
 
   signInForm: FormGroup;
 
@@ -103,6 +103,7 @@ export class LoginComponent implements OnInit {
 
   toggleDisplay(){
     this.signInFlag = !this.signInFlag
+    this.alertFlag=false
   }
 
 }

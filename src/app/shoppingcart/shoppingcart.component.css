@@ -2,3 +2,12 @@
     margin-left: 160px; 
     padding: 0px 10px;
 }
+
+.alert{
+    font-family: 'Roboto Slab', serif;
+        color: red;
+}
+
+.display{
+    font-family: 'Yantramanav', sans-serif;
+}

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient  } from '@angular/common/http';
+import { config } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,24 @@ export class UserService {
 
   public signUpUser(reqBody:any)
   {
-    return this.httpClient.post(`http://localhost:4000/user/`,reqBody);
-  }
+    return this.httpClient.post(config.URL+`user/`,reqBody);
+  } 
 
 
   public signInUser(reqBody:any)
   {
     console.log(reqBody)
-    return this.httpClient.post(`http://localhost:4000/user/login`,reqBody);
+    return this.httpClient.post(config.URL+`user/login`,reqBody);
+  }
+
+  public getUserDetails()
+  {
+    return this.httpClient.get(config.URL+`user/${sessionStorage.getItem('user')}`);
+  }
+
+  public updateUserDetails(reqBody:any)
+  {
+    return this.httpClient.put(config.URL+`user/`,reqBody);
   }
 
   public setUserLoggedIn(name:string)
@@ -40,5 +51,9 @@ export class UserService {
 
   setToken(token:string){
     sessionStorage.setItem("jwttoken",token)
+  }
+
+  isTokenPresent() {
+    return !(sessionStorage.getItem('jwttoken') === null)
   }
 }

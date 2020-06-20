@@ -10,8 +10,10 @@ export class ShoppingcartComponent implements OnInit {
 
   constructor(private cartService:CartService) { }
   productId:String
+  cartId:String
   cartDetailsList :  Array<any> = []
   displayFlag : Boolean = false
+  alertFlag : Boolean = false
 
   ngOnInit(): void {
       this.getShoppingCartDetailsById()
@@ -23,6 +25,12 @@ export class ShoppingcartComponent implements OnInit {
         if(data.success)
         {
           this.cartDetailsList = data.message;
+          console.log( this.cartDetailsList)
+          if(this.cartDetailsList.length===0){
+            this.alertFlag = true
+          }else{
+            this.alertFlag = false
+          }
         }else{
             console.log(data.message)
         }
@@ -31,8 +39,9 @@ export class ShoppingcartComponent implements OnInit {
       console.log("Error in getting the shopping details")
     }
   }
-  setCurrentItemId(id){
-    this.productId=id
+  setCurrentItemId(id,cartid){
+    this.productId=id,
+    this.cartId = cartid
   }
   orderItemsFromCart(){
     var answer = confirm ("Confirm to place Order ?")
@@ -41,6 +50,7 @@ export class ShoppingcartComponent implements OnInit {
         const reqBody = {
           productId: this.productId,
           userId : sessionStorage.getItem('user'),
+          cartId:this.cartId,
           paymentStatus : this.displayFlag,
         }
         this.cartService.orderItemsFromCart(reqBody).subscribe((data:any)=>{

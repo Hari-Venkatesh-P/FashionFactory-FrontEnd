@@ -1,9 +1,11 @@
 <div class="sidenav">
-    <div style="cursor: pointer;" *ngFor="let category of categorylist; index as i">
-        <a data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" (click)="toggleHomeView(i)">{{category.name}}</a>
+    <div (click)="displayWhatsNewProducts()" style="cursor: pointer;margin-left: 15px;"><p><b>Whats New  ?</b> </p></div>
+    <div *ngIf="isAdminLoggedIn()" ><a  href="/admin" style="cursor: pointer;"><b>Add New Product</b> </a></div>
+    <div style="cursor: pointer;"  *ngFor="let category of categorylist; index as i">
+        <a  class="displayCategory" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" (click)="toggleHomeView(i)">{{category.name}}</a>
         <div *ngFor="let onesubcategory of category.subcategory;" >
             <div *ngIf="viewFlag[i]" >
-              <p class="selected" (click)="displayProducts(category._id,onesubcategory._id)" style="cursor: pointer;"># {{onesubcategory.name}}</p>
+              <p class="selected displaySubCategories"  (click)="displayProducts(category._id,onesubcategory._id)" style="cursor: pointer;"># {{onesubcategory.name}}</p>
             </div>
         </div>
     </div>

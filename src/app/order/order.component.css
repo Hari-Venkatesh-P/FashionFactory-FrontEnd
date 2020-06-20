@@ -11,3 +11,13 @@
 .notPaid{
 color:red
 }
+
+.alert{
+    font-family: 'Roboto Slab', serif;
+        color: red;
+}
+
+
+.display{
+    font-family: 'Yantramanav', sans-serif;
+}

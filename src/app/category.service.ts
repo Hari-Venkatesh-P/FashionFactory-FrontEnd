@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient  } from '@angular/common/http';
+
+import { config } from '../config/config';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,31 +12,30 @@ export class CategoryService {
 
   public getAllCategories()
   {
-    return this.httpClient.get("http://localhost:4000/category");
+    return this.httpClient.get(config.URL+"category");
   }
 
   public getCategoryById(id:String)
   {
-    return this.httpClient.get(`http://localhost:4000/category/${id}`);
+    return this.httpClient.get(config.URL+`category/${id}`);
   }
 
   public getAllSubcategories()
   {
-    return this.httpClient.get(`http://localhost:4000/subcategory/`);
+    return this.httpClient.get(config.URL+`subcategory/`);
   }
 
   public mapSubCategory(catId,subCatId)
   {
-    console.log("Put Method")
-    return this.httpClient.put(`http://localhost:4000/category/${catId}/${subCatId}`," ");
+    return this.httpClient.put(config.URL+`category/${catId}/${subCatId}`," ");
   }
   public addSubCategory(reqBody:any)
   {
-    return this.httpClient.post(`http://localhost:4000/subcategory/`,reqBody);
+    return this.httpClient.post(config.URL+`subcategory/`,reqBody);
   }
 
   public addCategory(reqBody:any)
   {
-    return this.httpClient.post(`http://localhost:4000/category`,reqBody);
+    return this.httpClient.post(config.URL+`category`,reqBody);
   }
 }
